@@ -1,0 +1,17 @@
+version: "3.6"
+services:
+  mongo:
+    image: mongo:4.4
+    ports:
+      - 27017:27017
+    volumes:
+      - ./mongo-data:/data/db/
+  
+  server:
+    build: src
+    ports:
+      - 3000:3000
+    environment:
+      - MONGODB_URI=mongodb://mongo:27017/demo-db
+    depends_on:
+      - mongo
